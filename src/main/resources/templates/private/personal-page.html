@@ -1,12 +1,81 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personal</title>
 </head>
 <body>
-<div>
-    <h2>Your page</h2>
+<div class="account-container">
+    <h2>Hello, [[${myName}]]</h2>
+    <h3>You can check here general information or do some banking things</h3>
+    <div class="account-info">
+        <p><span class="label">Account ID:</span> <span class="value" th:text="${myAccount.getAccountNumber()}"></span></p>
+        <p><span class="label">Balance:</span> <span class="value" th:text="${myAccount.getBalance()}"></span></p>
+    </div>
+
+    <form action="/my-account/transaction">
+        <button class="button">Transaction</button>
+    </form>
+
 </div>
 </body>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f7fc;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .account-container {
+        background-color: #ffffff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        padding: 30px;
+        width: 500px;
+        text-align: center;
+    }
+
+    .account-container h1 {
+        font-size: 24px;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .account-info {
+        font-size: 18px;
+        color: #666;
+        margin-bottom: 20px;
+    }
+
+    .account-info .label {
+        font-weight: bold;
+    }
+
+    .account-info .value {
+        color: #2d8a3e;
+        font-size: 20px;
+    }
+
+    .button {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        text-align: center;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .button:hover {
+        background-color: #45a049;
+    }
+</style>
 </html>

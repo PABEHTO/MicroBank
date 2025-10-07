@@ -9,22 +9,21 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "account_number")
+    @Column(name = "account_number", nullable = false)
     private String accountNumber;
 
-    @Column(name = "balance")
+    @Column(name = "balance", nullable = false)
     private int balance;
 
-    @OneToOne()
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @OneToOne(mappedBy = "account")
     private User user;
 
     public Account() {}
 
-    public Account(String accountNumber, int balance, User user) {
+    public Account(String accountNumber, int balance) {
         this.accountNumber = accountNumber;
         this.balance = balance;
-        this.user = user;
+
     }
 
     public int getId() {

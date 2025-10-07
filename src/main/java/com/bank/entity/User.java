@@ -15,24 +15,21 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "full-name", nullable = false)
-    private String fullName;
-
-    @Column(name = "email", nullable = false)
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
     @Column(name = "role", nullable = false)
     private UserRole role;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "account_id", referencedColumnName = "id")
     private Account account;
 
     public User() {}
 
-    public User(String username, String password, String fullName, String email, UserRole role) {
+    public User(String username, String email, String password, UserRole role) {
         this.username = username;
         this.password = password;
-        this.fullName = fullName;
         this.email = email;
         this.role = role;
     }
@@ -67,14 +64,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
     }
 
     public String getEmail() {
