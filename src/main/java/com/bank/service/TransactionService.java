@@ -4,6 +4,9 @@ import com.bank.entity.Account;
 import com.bank.entity.Transaction;
 import com.bank.entity.TransactionType;
 import com.bank.exceptions.NotEnoughMoneyException;
+import com.bank.exceptions.NotEnoughMoneyTransferException;
+import com.bank.exceptions.SelfTransferException;
+import com.bank.exceptions.TransferUserNotFoundException;
 import com.bank.repository.AccountRepository;
 import com.bank.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -47,10 +52,22 @@ public class TransactionService {
         accountRepository.save(account);
     }
 
-    public void transfer(Account from, Account to, int amount) throws NotEnoughMoneyException {
+    public void transfer(Account from, String toAccount, int amount)
+            throws NotEnoughMoneyTransferException,
+            SelfTransferException,
+            TransferUserNotFoundException {
+        Account to = accountRepository.findByAccountNumber(toAccount);
         if (from.getBalance() < amount) {
-            throw new NotEnoughMoneyException();
+            throw new NotEnoughMoneyTransferException();
+        } else {
+            if (to == null) {
+                throw new TransferUserNotFoundException();
+            }
+            if (Objects.equals(from.getAccountNumber(), to.getAccountNumber())) {
+                throw new SelfTransferException();
+            }
         }
+
         from.setBalance(from.getBalance() - amount);
         to.setBalance(to.getBalance() + amount);
         Transaction transaction = new Transaction(TransactionType.TRANSFER, amount, LocalDateTime.now(), from, to);

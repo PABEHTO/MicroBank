@@ -1,6 +1,10 @@
 package com.bank.controller.secured;
 
 import com.bank.entity.Account;
+import com.bank.exceptions.NotEnoughMoneyException;
+import com.bank.exceptions.NotEnoughMoneyTransferException;
+import com.bank.exceptions.SelfTransferException;
+import com.bank.exceptions.TransferUserNotFoundException;
 import com.bank.service.TransactionService;
 import com.bank.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,21 +38,50 @@ public class PrivateTransactionController {
     }
 
     @PostMapping("/deposit")
-    public String getDepositPage(
-            @RequestParam(name="amount") int amount
+    public String doDeposit(
+            @RequestParam(name = "amount") int amount
     ) {
         Account account = userService.getTheUser().getAccount();
         transactionService.deposit(account, amount);
         return "redirect:/my-page/deposit";
     }
 
+    @GetMapping("/withdraw")
+    public String getWithdrawPage(Model model) {
+        Account account = userService.getTheUser().getAccount();
+        model.addAttribute("myAccount", account);
+        model.addAttribute("myName", userService.getTheUser().getUsername());
+        return "private/withdraw-page";
+    }
+
+    @PostMapping("/withdraw")
+    public String doTransfer(
+            @RequestParam int amount
+    ) throws NotEnoughMoneyException {
+        Account account = userService.getTheUser().getAccount();
+        transactionService.withdraw(account, amount);
+        return "redirect:/my-page/withdraw";
+    }
+
     @GetMapping("/transfer")
-    public String getTransferPage() {
+    public String getTransferPage(Model model
+    ) {
+        Account account = userService.getTheUser().getAccount();
+        model.addAttribute("myAccount", account);
+        model.addAttribute("myName", userService.getTheUser().getUsername());
         return "private/transfer-page";
     }
 
-    @GetMapping("withdraw")
-    public String getWithdrawPage() {
-        return "private/withdraw-page";
+    @PostMapping("/transfer")
+    public String doTransfer(
+            @RequestParam(name = "account_name_to_send") String toAccountName,
+            @RequestParam int amount,
+            Model model
+    ) throws NotEnoughMoneyTransferException,
+            SelfTransferException,
+            TransferUserNotFoundException {
+        Account account = userService.getTheUser().getAccount();
+        transactionService.transfer(account, toAccountName, amount);
+        return "redirect:/my-page/transfer";
     }
 }

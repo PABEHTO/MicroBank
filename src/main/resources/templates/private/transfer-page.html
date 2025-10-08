@@ -1,12 +1,114 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Transfer</title>
 </head>
 <body>
-<div>
+<div class="account-container">
     <h2>Transfer</h2>
+    <h3>Hello, [[${myName}]]</h3>
+    <h3>Make sure you put correct account ID and amount to transfer</h3>
+    <p>Your current balance: <span class="value" th:text="${myAccount.getBalance()}"></span></p>
+
+    <form action="/my-page/transfer" method="post" class="transaction-form">
+        <label>Enter amount to withdraw:</label><br>
+        <input type="text" name="account_name_to_send" required class = "input-field"/>
+        <input type="number" name="amount" required class="input-field"/><br><br>
+        <button type="submit" class="button">Transfer</button>
+    </form>
+    <div th:if="${param.notEnoughMoney}" style="color: red;">
+        <h4>Not enough money on your account!</h4>
+    </div>
+
+    <div th:if="${param.selfTransfer}" style="color: red;">
+        <h4>You're trying transfer to yourself!</h4>
+    </div>
+
+    <div th:if="${param.transferUserNotFound}" style="color: red;">
+        <h4>The user doesn't exist!</h4>
+    </div>
+
+    <form action="/my-page" method="get">
+        <button type="submit" class="button back-button">Back to the page</button>
+    </form>
 </div>
 </body>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f7fc;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .account-container {
+        background-color: #ffffff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        padding: 30px;
+        width: 450px;
+        text-align: center;
+    }
+
+    h2 {
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    h3 {
+        color: #555;
+        margin-bottom: 20px;
+        font-weight: normal;
+    }
+
+    .value {
+        color: #2d8a3e;
+        font-weight: bold;
+    }
+
+    .transaction-form {
+        margin-bottom: 20px;
+    }
+
+    .input-field {
+        width: 80%;
+        padding: 8px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        margin-top: 8px;
+    }
+
+    .button {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        text-align: center;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .button:hover {
+        background-color: #45a049;
+    }
+
+    .back-button {
+        background-color: #888;
+        margin-top: 10px;
+    }
+
+    .back-button:hover {
+        background-color: #666;
+    }
+</style>
 </html>
