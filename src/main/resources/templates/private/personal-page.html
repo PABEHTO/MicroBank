@@ -14,12 +14,56 @@
         <p><span class="label">Balance:</span> <span class="value" th:text="${myAccount.getBalance()}"></span></p>
     </div>
 
-    <form action="/my-account/transaction">
-        <button class="button">Transaction</button>
-    </form>
+    <div style="display: flex; justify-content: center;">
+        <button id="toggleButton" class="button">Transaction</button>
+        <button id="toggleButton2" class="button" style="display: none">✖</button>
+    </div>
+
+    <div id="transactionMenu" class="transaction-menu" style="display: none;">
+        <form action="/my-page/deposit" method="get">
+            <button type="submit" class="button sub-button">Deposit</button>
+        </form>
+        <form action="/my-page/withdraw" method="get">
+            <button type="submit" class="button sub-button">Withdraw</button>
+        </form>
+        <form action="/my-page/transfer" method="get">
+            <button type="submit" class="button sub-button">Transfer</button>
+        </form>
+    </div>
 
 </div>
 </body>
+
+<script>
+    const toggleButton = document.getElementById('toggleButton');
+    const toggleButton2 = document.getElementById('toggleButton2');
+    const transactionMenu = document.getElementById('transactionMenu');
+
+    toggleButton.addEventListener('click', () => {
+        transactionMenu.style.display = 'block';
+        toggleButton.style.display = 'none';
+        toggleButton2.style.display = 'block';
+    });
+
+    toggleButton2.addEventListener('click', () => {
+        transactionMenu.style.display = 'none';
+        toggleButton.style.display = 'block';
+        toggleButton2.style.display = 'none';
+    });
+
+    /*toggleButton.addEventListener('click', () => {
+        if (transactionMenu.style.display === 'none') {
+            transactionMenu.style.display = 'block';
+            transButton.style.display = 'none';
+            transButton2.style.display = 'block';
+        } else if (transButton.style.display === 'none') {
+            transactionMenu.style.display = 'none';
+            transButton.style.display = 'block';
+            transButton2.style.display = 'none';
+        }
+    });*/
+</script>
+
 <style>
     body {
         font-family: Arial, sans-serif;
@@ -76,6 +120,10 @@
 
     .button:hover {
         background-color: #45a049;
+    }
+
+    .sub-button {
+        margin-top: 15px;
     }
 </style>
 </html>

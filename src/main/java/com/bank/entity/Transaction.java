@@ -21,12 +21,12 @@ public class Transaction {
     private LocalDateTime date;
 
     @ManyToOne
-    @JoinColumn(name = "source_account_id")
-    private Account sourceAccountId;
+    @JoinColumn(name = "source_account")
+    private Account sourceAccount;
 
     @ManyToOne
-    @JoinColumn(name = "target_account_id")
-    private Account targetAccountId;
+    @JoinColumn(name = "target_account")
+    private Account targetAccount;
 
     public Transaction() {}
 
@@ -34,9 +34,11 @@ public class Transaction {
         this.type = type;
         this.amount = amount;
         this.date = date;
-        this.sourceAccountId = sourceAccountId;
-        this.targetAccountId = targetAccountId;
+        this.sourceAccount = sourceAccountId;
+        this.targetAccount = targetAccountId;
     }
+
+
 
     public int getId() {
         return id;
@@ -71,18 +73,18 @@ public class Transaction {
     }
 
     public Account getSourceAccountId() {
-        return sourceAccountId;
+        return sourceAccount;
     }
 
-    public void setSourceAccountId(Account sourceAccountId) {
-        this.sourceAccountId = sourceAccountId;
+    public void setSourceAccountId(Account sourceAccount) {
+        this.sourceAccount = sourceAccount;
     }
 
     public Account getTargetAccountId() {
-        return targetAccountId;
+        return targetAccount;
     }
 
-    public void setTargetAccountId(Account targetAccountId) {
-        this.targetAccountId = targetAccountId;
+    public void setTargetAccountId(Account targetAccount) {
+        this.targetAccount = targetAccount;
     }
 }

@@ -2,6 +2,8 @@ package com.bank.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "accounts")
 public class Account {
@@ -18,12 +20,34 @@ public class Account {
     @OneToOne(mappedBy = "account")
     private User user;
 
+    @OneToMany(mappedBy = "sourceAccount", cascade = CascadeType.ALL)
+    public List<Transaction> outTransactions;
+
+    @OneToMany(mappedBy = "targetAccount", cascade = CascadeType.ALL)
+    public List<Transaction> incomingTransactions;
+
     public Account() {}
 
     public Account(String accountNumber, int balance) {
         this.accountNumber = accountNumber;
         this.balance = balance;
 
+    }
+
+    public List<Transaction> getOutTransactions() {
+        return outTransactions;
+    }
+
+    public void setOutTransactions(List<Transaction> outTransactions) {
+        this.outTransactions = outTransactions;
+    }
+
+    public List<Transaction> getIncomingTransactions() {
+        return incomingTransactions;
+    }
+
+    public void setIncomingTransactions(List<Transaction> incomingTransactions) {
+        this.incomingTransactions = incomingTransactions;
     }
 
     public int getId() {
