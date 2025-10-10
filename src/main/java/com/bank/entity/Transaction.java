@@ -3,6 +3,7 @@ package com.bank.entity;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 @Table(name = "transactions")
@@ -66,6 +67,10 @@ public class Transaction {
 
     public LocalDateTime getDate() {
         return date;
+    }
+
+    public String getFormatedDate() {
+        return date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh-mm-ss"));
     }
 
     public void setDate(LocalDateTime date) {

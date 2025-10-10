@@ -1,7 +1,6 @@
 package com.bank.service;
 
 import com.bank.entity.Account;
-import com.bank.entity.User;
 import com.bank.repository.AccountRepository;
 import com.bank.repository.TransactionRepository;
 
@@ -16,13 +15,10 @@ import java.util.UUID;
 @Transactional
 public class AccountService {
     private final AccountRepository accountRepository;
-    private final TransactionRepository transactionRepository;
 
     @Autowired
-    public AccountService(AccountRepository accountRepository,
-                          TransactionRepository transactionRepository) {
+    public AccountService(AccountRepository accountRepository) {
         this.accountRepository = accountRepository;
-        this.transactionRepository = transactionRepository;
     }
 
     public Account createAccount() {

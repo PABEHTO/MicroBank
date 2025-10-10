@@ -6,6 +6,19 @@
     <title>Personal</title>
 </head>
 <body>
+
+<nav class="navbar">
+    <div class="navbar-left">
+        <span class="navbar-brand">MyBank</span>
+    </div>
+    <div class="navbar-right">
+        <form action="/my-page/transaction-history" method="get" style="display: inline;">
+            <button type="submit" class="navbar-button">Transaction History</button>
+        </form>
+        <!-- ... -->
+    </div>
+</nav>
+
 <div class="account-container">
     <h2>Hello, [[${myName}]]</h2>
     <h3>You can check here general information or do some banking things</h3>
@@ -15,7 +28,7 @@
     </div>
 
     <div style="display: flex; justify-content: center;">
-        <button id="toggleButton" class="button">Transaction</button>
+        <button id="toggleButton" class="button">Transactions</button>
         <button id="toggleButton2" class="button" style="display: none">✖</button>
     </div>
 
@@ -50,21 +63,46 @@
         toggleButton.style.display = 'block';
         toggleButton2.style.display = 'none';
     });
-
-    /*toggleButton.addEventListener('click', () => {
-        if (transactionMenu.style.display === 'none') {
-            transactionMenu.style.display = 'block';
-            transButton.style.display = 'none';
-            transButton2.style.display = 'block';
-        } else if (transButton.style.display === 'none') {
-            transactionMenu.style.display = 'none';
-            transButton.style.display = 'block';
-            transButton2.style.display = 'none';
-        }
-    });*/
 </script>
 
 <style>
+
+    .navbar {
+        width: 100%;
+        background-color: #4CAF50;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 10px;
+
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 60px;
+    }
+
+    .navbar-brand {
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .navbar-button {
+        background-color: white;
+        color: #4CAF50;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 4px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        margin-right: 20px;
+    }
+
+    .navbar-button:hover {
+        background-color: #e0e0e0;
+    }
+
     body {
         font-family: Arial, sans-serif;
         background-color: #f4f7fc;
@@ -83,6 +121,7 @@
         padding: 30px;
         width: 500px;
         text-align: center;
+        margin-top: 100px;
     }
 
     .account-container h1 {

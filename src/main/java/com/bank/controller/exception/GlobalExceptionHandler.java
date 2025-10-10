@@ -43,9 +43,4 @@ public class GlobalExceptionHandler implements ErrorController {
         return "public/error/error-page";
     }
 
-    /*@RequestMapping("/my-page/withdraw")
-    public String getNotEnoughMoneyPage() {
-        return "redirect:/my-page/withdraw?error=notenoughmoney";
-    }*/
-
 }

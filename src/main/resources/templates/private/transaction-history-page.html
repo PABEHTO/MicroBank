@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Transaction History</title>
+</head>
+<body>
+<nav class="navbar">
+    <div class="navbar-left">
+        <span class="navbar-brand">MyBank</span>
+    </div>
+    <div class="navbar-right">
+        <form action="/my-page" method="get" style="display: inline;">
+            <button type="submit" class="navbar-button">Account Page</button>
+        </form>
+        <!-- ... -->
+    </div>
+</nav>
+<div>
+    <div>
+        <h1>Transaction History Page</h1>
+        <div class="account-container">
+            <div style="display:flex; justify-content: space-between">
+                <form>
+                    <label>
+                        <input type="hidden" name="show_type" value="income"/>
+                        <button type="submit" class="button">Income</button>
+                    </label>
+                </form>
+
+                <form>
+                    <label>
+                        <input type="hidden" name="show_type" value="outcome"/>
+                        <button type="submit" class="button">Outcome</button>
+                    </label>
+                </form>
+
+            </div>
+            <div th:switch="${show_type}">
+                <div th:case="income">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr">
+                        <span>Date</span>
+                        <span>Amount</span>
+                        <span>Transaction ID</span>
+                    </div>
+                    <div th:each="transaction : ${transactionsIn}" style="display: grid; grid-template-columns: 1fr 1fr 1fr">
+                        <span th:text="${transaction.getFormatedDate()}"></span>
+                        <span th:text="${transaction.getAmount()}"></span>
+                        <span th:text="${transaction.getId()}"></span>
+                    </div>
+                </div>
+
+                <div th:case="outcome">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr">
+                        <span>Date</span>
+                        <span>Amount</span>
+                        <span>Transaction ID</span>
+                    </div>
+                    <div th:each="transaction : ${transactionsOut}" style="display: grid; grid-template-columns: 1fr 1fr 1fr">
+                        <span th:text="${transaction.getFormatedDate()}"></span>
+                        <span th:text="${transaction.getAmount()}"></span>
+                        <span th:text="${transaction.getId()}"></span>
+                    </div>
+                </div>
+
+                <div th:case="*">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+<style>
+
+    .navbar {
+        width: 100%;
+        background-color: #4CAF50;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 10px;
+
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 60px;
+    }
+
+    .navbar-brand {
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .navbar-button {
+        background-color: white;
+        color: #4CAF50;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 4px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        margin-right: 20px;
+    }
+
+    .navbar-button:hover {
+        background-color: #e0e0e0;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f7fc;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .account-container {
+        background-color: #ffffff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        padding: 30px;
+        width: 500px;
+        text-align: center;
+        margin-top: 100px;
+    }
+
+    .account-container h1 {
+        font-size: 24px;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .account-info {
+        font-size: 18px;
+        color: #666;
+        margin-bottom: 20px;
+    }
+
+    .account-info .label {
+        font-weight: bold;
+    }
+
+    .account-info .value {
+        color: #2d8a3e;
+        font-size: 20px;
+    }
+
+    .button {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        text-align: center;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .button:hover {
+        background-color: #45a049;
+    }
+
+    .sub-button {
+        margin-top: 15px;
+    }
+</style>
+
+</html>

@@ -1,11 +1,15 @@
 package com.bank.controller.secured;
 
+import com.bank.entity.Account;
+import com.bank.entity.Transaction;
 import com.bank.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/my-page")
@@ -21,6 +25,7 @@ public class PrivateAccessController {
     public String getMyPage(Model model) {
         model.addAttribute("myName", userService.getTheUser().getUsername());
         model.addAttribute("myAccount", userService.getTheUser().getAccount());
+
         return "private/personal-page";
     }
 
