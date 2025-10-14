@@ -1,7 +1,5 @@
 package com.bank.controller.secured;
 
-import com.bank.entity.Account;
-import com.bank.entity.Transaction;
 import com.bank.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

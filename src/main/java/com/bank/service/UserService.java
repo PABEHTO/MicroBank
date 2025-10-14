@@ -1,12 +1,14 @@
 package com.bank.service;
 
 import com.bank.entity.Account;
+import com.bank.entity.Transaction;
 import com.bank.entity.User;
-import com.bank.repository.AccountRepository;
 import com.bank.repository.UserRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional
@@ -37,5 +39,17 @@ public class UserService {
 
     public void deleteUser(User user) {
         userRepository.delete(user);
+    }
+
+    public Account getTheAccount() {
+        return getTheUser().getAccount();
+    }
+
+    public List<Transaction> getTheIncomingTransactions() {
+        return getTheAccount().getIncomingTransactions();
+    }
+
+    public List<Transaction> getTheOutcomingTransactions() {
+        return getTheAccount().getOutTransactions();
     }
 }

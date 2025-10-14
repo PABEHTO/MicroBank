@@ -3,7 +3,6 @@ package com.bank.config;
 import com.bank.entity.User;
 import com.bank.entity.UserRole;
 import com.bank.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
