@@ -14,6 +14,10 @@
         <button type="submit" class="button">Login</button>
     </form>
     <a class="register-link" href="/registration">Sign up</a>
+    <div th:if="${param.wrongAccountData}" style="color: red;">
+        <h4>Wrong account data</h4>
+    </div>
+
 </div>
 </body>
 <style>

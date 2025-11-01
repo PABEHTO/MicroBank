@@ -2,7 +2,10 @@ package com.bank.controller.common;
 
 import com.bank.entity.User;
 import com.bank.entity.UserRole;
+import com.bank.exceptions.ExistsUserException;
 import com.bank.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -20,6 +23,8 @@ import java.util.Set;
 public class PublicAuthorizationController {
     private final PasswordEncoder passwordEncoder;
     private final UserService userService;
+
+    private Logger LOG = LoggerFactory.getLogger(PublicAuthorizationController.class);
 
     public PublicAuthorizationController(PasswordEncoder passwordEncoder,
                                          UserService userService) {
@@ -40,13 +45,15 @@ public class PublicAuthorizationController {
     @PostMapping("/registration")
     public String createUser(@RequestParam("username") String username,
                              @RequestParam("email") String email,
-                             @RequestParam("password") String password) {
+                             @RequestParam("password") String password)
+    throws ExistsUserException {
         String encodedPassword = passwordEncoder.encode(password);
         userService.saveUser(new User(
                 username,
                 email, encodedPassword,
                 UserRole.USER));
         autoLogin(email, password);
+
         return "redirect:/my-page";
     }
 

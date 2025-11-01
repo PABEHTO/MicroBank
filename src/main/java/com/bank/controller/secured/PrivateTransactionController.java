@@ -55,7 +55,7 @@ public class PrivateTransactionController {
     }
 
     @PostMapping("/withdraw")
-    public String doTransfer(
+    public String doWithdraw(
             @RequestParam int amount
     ) throws NotEnoughMoneyException {
         Account account = userService.getTheUser().getAccount();

@@ -41,7 +41,7 @@ public class SecurityConfig {
                         .permitAll()
                         .usernameParameter("email")
                         .defaultSuccessUrl("/my-page")
-                        .failureUrl("/login?error")
+                        .failureUrl("/login?wrongAccountData=true")
                         .loginProcessingUrl("/login"))
                 .logout(l -> l
                         .logoutUrl("/logout")

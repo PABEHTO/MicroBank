@@ -15,6 +15,9 @@
         <button type="submit" class="button">Create an account</button>
     </form>
     <a class="login-link" href="/login">Sign in</a>
+    <div th:if="${param.alreadyExists}" style="color: red;">
+        <h4>Your email already registered</h4>
+    </div>
 </div>
 </body>
 <style>

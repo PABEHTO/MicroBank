@@ -26,11 +26,4 @@ public class PrivateAccessController {
 
         return "private/personal-page";
     }
-
-    /*
-    @PostMapping("/delete")
-    public String deleteMyAccount() {
-        userService.deleteUser(userService.getTheUser());
-        return "redirect:/login";
-    }*/
 }

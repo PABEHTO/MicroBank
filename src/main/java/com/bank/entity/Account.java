@@ -31,7 +31,6 @@ public class Account {
     public Account(String accountNumber, int balance) {
         this.accountNumber = accountNumber;
         this.balance = balance;
-
     }
 
     public List<Transaction> getOutTransactions() {

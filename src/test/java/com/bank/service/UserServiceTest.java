@@ -15,6 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
@@ -50,13 +51,12 @@ public class UserServiceTest {
         when(accountService.createAccount()).thenReturn(account);
 
         //Act
-        userService.saveUser(user);
+        assertDoesNotThrow(() -> userService.saveUser(user));
 
         //Assert
         verify(accountService).createAccount();
         verify(userRepository).save(user);
         assertEquals(account, user.getAccount());
-
     }
 
     @Test
